@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import DecimalValidator, MinValueValidator
+from decimal import *
 
 
 # Create your models here.
@@ -26,14 +27,16 @@ class Location(models.Model):
 
 class Item_Status(models.Model):
     """Stores item locations"""
+    class Meta:
+        verbose_name_plural="item status"
     name = models.CharField(max_length= 30)
     description = models.CharField(max_length=255)
     def __str__(self):
-        return f'{self.name} {self.description}'
+        return f'{self.name}:   {self.description}'
 
 
 
-class Item:
+class Item(models.Model):
     DE = "EXAM_CAM"
     DC = "CAMERA"
     DM = "MOBILE"
@@ -63,15 +66,17 @@ class Item:
 
     name = models.CharField(max_length= 30)
     date_added = models.DateField(auto_now_add=True)
-    purchase_price = models.DecimalField(max_digits=7, decimal_places=2,validators=[MinValueValidator(DecimalValidator('0.00'))])
-    serial_number = models.CharField(max_digits = 30)
+    manufacturer = models.CharField(max_length=150, blank=True)
+    
+    purchase_price = models.DecimalField(max_digits=7, decimal_places=2,validators=[MinValueValidator(Decimal('0.00'))])
+    serial_number = models.CharField(max_length = 30, blank = True)
     device_category = models.CharField(
-        max_length= 2,
+        max_length= 30,
         choices = DEVICE_CAT_CHOICES)
-    location= models.ForeignKey(Location)
-    status = models.ForeignKey(Item_Status)
+    location= models.ForeignKey(Location, on_delete=models.CASCADE)
+    status = models.ForeignKey(Item_Status, on_delete=models.CASCADE)
     status_date = models.DateField(blank = True, null = True)
-
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.name

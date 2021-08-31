@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from tracker import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('items/', views.items, name='items'),
 ]
