@@ -1,0 +1,37 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+<h2>Kits</h2>
+<!-- <div class="input-group">
+    <input type="text" id="myInput" onkeyup="activeSearch('myInput','myTable')" placeholder="Search for names.."
+        title="Type in a name" />
+</div> -->
+
+  <table class="table table-bordered table-hover table-sm bg-light">
+      <thead class="thead-dark">
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Items</th>
+          <th scope="col">Available</th>
+          <th scope="col">Category</th>
+          <th scope="col"></th>
+      </thead>
+      <tbody>
+        {% for kit in kit_list %}
+        <tr>
+        <td>{{kit.id}}</td>
+        <td>{{kit}}</td>
+        <td>{{kit.description}}</td>
+        <td>{{kit.items.count}}</td>
+        <td>{{kit.available}}</td>
+        <td>{{kit.category}}</td>
+        <td class = "text-center">
+          <a class="btn btn-sm btn-info" href="{% url 'kit-detail' kit.id %}">Edit</a></td>
+        {% endfor %}
+        </tr>
+      </tbody>
+      </table>
+      <a class="btn bg-primary btn-md btn-info float-right" href="{% url 'new_kit'  %}">Add New</a>
+      {% endblock %}

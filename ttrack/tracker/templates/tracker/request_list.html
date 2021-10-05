@@ -1,0 +1,42 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+<h2>Loan Requests</h2>
+<!-- <div class="input-group">
+    <input type="text" id="myInput" onkeyup="activeSearch('myInput','myTable')" placeholder="Search for names.."
+        title="Type in a name" />
+</div> -->
+
+  <table class="table table-bordered table-hover table-sm bg-light">
+      <thead class="thead-dark">
+          <th scope="col">ID</th>
+          <th scope="col">Requestor</th>
+          <th scope="col">Request Date</th>
+          <th scope="col">Desired Date</th>
+          <th scope="col">Request Duration</th>
+          <th scope="col">Kit Requested</th>
+          <th scope="col">Status</th>
+          <th scope="col">Due Date</th>
+          
+          <th scope="col"></th>
+      </thead>
+      <tbody>
+        {% for req in request_list %}
+        <tr>
+        <td>{{req.id}}</td>
+        <td>{{req.borrower}}</td>
+        <td>{{req.request_date}}</td>
+        <td>{{req.desired_date}}</td>
+        <td>{{req.loan_length}}</td>
+        <td>{{req.kit}}</td>
+        <td>{{req.req_status}}</td>
+        <td>{{req.due_date}}</td>
+        <td class = "text-center">
+          <a class="btn btn-sm btn-info" href="{% url 'kit-detail' req.id %}">Edit</a></td>
+        {% endfor %}
+        </tr>
+      </tbody>
+      </table>
+      <a class="btn bg-primary btn-md btn-info float-right" href="{% url 'new_kit'  %}">Add New</a>
+      {% endblock %}

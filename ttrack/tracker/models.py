@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import DecimalValidator, MinValueValidator
+from django.core.validators import DecimalValidator, MaxValueValidator, MinValueValidator
 from decimal import *
 
 
@@ -119,6 +119,10 @@ class Request(models.Model):
     #TODO add staff once setup for tracking who approves loans
     #staff = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     request_date = models.DateTimeField(auto_now_add=True)
+    #Adding desired date for when they want the equipment
+    desired_date = models.DateField(blank=True, null = True)
+    loan_length = models.SmallIntegerField(
+        validators = [MinValueValidator(1, message="Loans cannot be shorter than one day."), MaxValueValidator(10, message="Loans cannot be longer than 10 days.")])
     req_status = models.CharField(
         max_length=3,
         choices = REQ_STATE_CHOICES,

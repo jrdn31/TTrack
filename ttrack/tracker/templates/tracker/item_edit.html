@@ -1,0 +1,20 @@
+{% extends 'tracker/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class = "card">
+<div class="card-header bg-secondary text-light border-primary rounded ">
+
+<h1>Add New Inventory</h1>
+</div>
+<div class="card-body bg-light text-dark" >
+      <h1>Item Details</h1>
+      <form action="{% url 'item_edit' item.id %}"
+            method="post">
+            {{ form|crispy }}
+            {% csrf_token %}
+           
+      <button class="btn btn-outline-primary float-right" type="submit">Edit</button>
+      </form>
+</div>
+</div>
+{% endblock %}

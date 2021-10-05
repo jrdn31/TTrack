@@ -1,0 +1,42 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+<h2>Kit Detail for: &nbsp; <strong>{{ kit }}</strong></h2>
+<div style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px; border-color: black; border-style:solid;">
+    <p><strong>Kit ID:</strong> {{kit.id}}</p>
+    <p><strong>Description:</strong> {{kit.description}}</p>
+    <div>
+    <p><strong>Items:</strong>
+        <table class="table table-bordered table-hover table-sm bg-light" >
+            <thead class="thead-dark">
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Location</th>
+                
+            </thead>
+            <tbody>
+            {% for item in kit.items.all %}
+           
+            <tr>
+            <td>{{item.id}}</td>
+            <td>{{item}}</td>
+            <td>{{item.manufacturer}}</td>
+            <td>{{item.purchase_price}}</td>
+            <td>{{item.status.name}}</td>
+            <td>{{item.location.name}}</td>
+            {% endfor %}
+            </tr>
+          </tbody>
+          </table>
+        </div>
+    <p><strong>Available:</strong> {{kit.available}}</p>
+    <p><strong>Category:</strong> {{kit.category}}</p>
+</div>
+
+<a class="btn bg-primary btn-md btn-info float-right" href="{% url 'kit_edit' kit.id %}">Edit Item</a>
+
+{% endblock %}

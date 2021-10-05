@@ -1,0 +1,19 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+<h2>Device Detail for: &nbsp; <strong>{{ item }}</strong></h2>
+<div style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px; border-color: black; border-style:solid;">
+    <p class="float-right"><strong>Date Added:</strong> {{item.date_added}}</p>
+    <p><strong>Manufacturer:</strong> {{item.manufacturer}}</p>
+    <p><strong>Purchase Price:</strong> {{item.purchase_price}}</p>
+    <p><strong>Serial Number:</strong> {{item.serial_number}}</p>
+    <p><strong>Device Category:</strong> {{item.device_category}}</p>
+    <p><strong>Location:</strong> {{item.location.description}}</p>
+    <p><strong>Status:</strong> {{item.status}} &nbsp;&nbsp; <strong>Status Date:</strong> {{item.status_date}}</p>
+    <p><strong>Notes:</strong> {{item.Notes}} </p>
+</div>
+
+<a class="btn bg-primary btn-md btn-info float-right" href="{% url 'item_edit' item.id  %}">Edit Item</a>
+
+{% endblock %}

@@ -1,52 +1,38 @@
-<!doctype html>
+{% extends 'tracker/base.html' %}
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>A Basic HTML5 Template</title>
-  <meta name="description" content="A simple HTML5 Template for new projects.">
-  <meta name="author" content="SitePoint">
+{% block content %}
+<h2>Device Inventory</h2>
+<!-- <div class="input-group">
+    <input type="text" id="myInput" onkeyup="activeSearch('myInput','myTable')" placeholder="Search for names.."
+        title="Type in a name" />
+</div> -->
 
-  <meta property="og:title" content="A Basic HTML5 Template">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
-  <meta property="og:description" content="A simple HTML5 Template for new projects.">
-  <meta property="og:image" content="image.png">
-
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-
-</head>
-
-<body>
-  <!-- your content here... -->
-  <table>
-      <thead>
-          <th>Name</th>
-          <th>Manufacturer</th>
-          <th>Price</th>
-          <th>Status</th>
-          <th>Location</th>
-          <th>Edit</th>
+  <table class="table table-bordered table-hover table-sm bg-light">
+      <thead class="thead-dark">
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Manufacturer</th>
+          <th scope="col">Price</th>
+          <th scope="col">Status</th>
+          <th scope="col">Location</th>
+          <th scope="col"></th>
       </thead>
       <tbody>
         {% for item in items %}
         <tr>
+        <td>{{item.id}}</td>
         <td>{{item}}</td>
         <td>{{item.manufacturer}}</td>
         <td>{{item.purchase_price}}</td>
         <td>{{item.status.name}}</td>
         <td>{{item.location.name}}</td>
-        <td>x</td>
+        <td class = "text-center">
+          <a class="btn btn-sm btn-info" href="{% url 'item-detail' item.id %}">View</a></td>
         {% endfor %}
         </tr>
       </tbody>
-  <script src="js/scripts.js"></script>
-</table>
-</body>
-</html>
+      </table>
+      <a class="btn bg-primary btn-md btn-info float-right " href="{% url 'new_item'  %}">Add New</a>
+
+      {% endblock %}
